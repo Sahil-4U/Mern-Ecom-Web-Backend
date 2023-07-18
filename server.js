@@ -5,6 +5,11 @@ const dotenv = require('dotenv').config();
 
 
 
+// file imports
+const connectionDb = require('./config/Mongodb');
+
+
+
 
 
 
@@ -12,12 +17,17 @@ const dotenv = require('dotenv').config();
 const app = express();
 
 
+// database connection
+connectionDb();
+
+// Middlewares
+// body parser
+app.use(express.json());
+
 
 // rest api's
 app.get('/', (req, res) => {
-    res.send({
-        message: 'this is our home page'
-    })
+    res.send(`<center><h3>Welcome to my site</h3></center>`)
 });
 
 
