@@ -1,41 +1,35 @@
-// Packages Import
-const express = require('express');
-const colors = require('colors');
-const dotenv = require('dotenv').config();
-
-
-
-// file imports
-const connectionDb = require('./config/Mongodb');
+import express from 'express';
+import color from 'colors';
+import dotenv from 'dotenv';
+import databaseHandler from './config/database.js';
 
 
 
 
 
 
-// rest objects
+// env config
+dotenv.config();
+
+
+// mongodb controller
+databaseHandler();
+
+
+
+// rest Object
 const app = express();
 
-
-// database connection
-connectionDb();
-
-// Middlewares
-// body parser
+// middlewares
 app.use(express.json());
 
-
-// rest api's
+// rest api
 app.get('/', (req, res) => {
-    res.send(`<center><h3>Welcome to my site</h3></center>`)
+    return res.send(`<center><h1>WELCOME</h1></center>`)
 });
 
 
-
-// Port value
-const PORT = process.env.PORT || 8080;
-
-// server listed
-app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT}/`.white.underline.bold);
+// server creation
+app.listen(process.env.PORT || 8080, () => {
+    console.log(`http://localhost:${process.env.PORT}/`.white.underline);
 })
