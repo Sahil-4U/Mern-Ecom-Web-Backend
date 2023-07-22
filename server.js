@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { urlencoded } from 'express';
 import color from 'colors';
 import dotenv from 'dotenv';
 import databaseHandler from './config/database.js';
@@ -19,12 +19,13 @@ databaseHandler();
 // rest Object
 const app = express();
 
+// middlewares
+app.use(express.json());
+app.use(urlencoded({ extended: true }))
 
 // routing
 app.use('/auth', authRoutes);
 
-// middlewares
-app.use(express.json());
 
 // rest api
 app.get('/', (req, res) => {
