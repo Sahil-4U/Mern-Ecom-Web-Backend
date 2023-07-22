@@ -2,7 +2,7 @@ import express from 'express';
 import color from 'colors';
 import dotenv from 'dotenv';
 import databaseHandler from './config/database.js';
-
+import router from './routes/authRoutes.js';
 
 
 
@@ -15,7 +15,8 @@ dotenv.config();
 // mongodb controller
 databaseHandler();
 
-
+// routing
+app.use(router)
 
 // rest Object
 const app = express();
