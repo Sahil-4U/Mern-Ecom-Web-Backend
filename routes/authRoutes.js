@@ -1,5 +1,6 @@
 import express from "express";
-import { registerControllerFn } from "../controller/authController.js";
+import { registerController } from '../controller/authController.js';
+
 
 
 
@@ -7,7 +8,7 @@ import { registerControllerFn } from "../controller/authController.js";
 const router = express.Router();
 
 // requests
-router.post('/register', registerControllerFn, () => { });
+router.post('/register', registerController, () => { });
 
 // export
 export default router;

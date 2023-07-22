@@ -1,5 +1,2 @@
-const registerControllerFn = () => {
+export const registerController = () => { };
 
-}
-
-export default { registerControllerFn };
