@@ -21,7 +21,6 @@ const app = express();
 
 // middlewares
 app.use(express.json());
-app.use(urlencoded({ extended: true }))
 
 // routing
 app.use('/auth', authRoutes);
