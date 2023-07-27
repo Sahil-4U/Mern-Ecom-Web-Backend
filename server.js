@@ -3,6 +3,7 @@ import color from 'colors';
 import dotenv from 'dotenv';
 import databaseHandler from './config/database.js';
 import authRoutes from './routes/authRoutes.js';
+import cors from 'cors';
 
 
 
@@ -21,6 +22,7 @@ const app = express();
 
 // middlewares
 app.use(express.json());
+app.use(cors());
 
 // routing
 app.use('/auth', authRoutes);
