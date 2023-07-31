@@ -2,7 +2,7 @@ import { HashedPassword, comparePassword } from '../helper/authHelper.js';
 import UserModel from '../model/UserModel.js';
 import Jwt from 'jsonwebtoken';
 
-
+// route for register-user:-
 export const registerController = async (req, res) => {
     try {
         // console.log(req.body);
@@ -55,7 +55,7 @@ export const registerController = async (req, res) => {
     }
 };
 
-// New route
+// route for login user:-
 export const loginController = async (req, res) => {
     try {
         // destructuring
@@ -84,7 +84,7 @@ export const loginController = async (req, res) => {
             })
         }
         // token creation
-        const token = await Jwt.sign({ _id: user._id }, process.env.SECRET_KEY, { expiresIn: '1m' });
+        const token = await Jwt.sign({ _id: user._id }, process.env.SECRET_KEY, { expiresIn: '7d' });
         return res.status(200).send({
             success: true,
             message: 'login successful',
@@ -101,6 +101,48 @@ export const loginController = async (req, res) => {
             status: unsuccessfull,
             message: 'Error in loginController function',
             error
+        })
+    }
+}
+
+
+// route for forget password:-
+export const forgetController = async (req, res) => {
+    try {
+        const { email, answer, newpassword } = req.body;
+        //    validations
+        if (!email) {
+            return res.status(404).send({ message: 'Enter a valid email' });
+        } else if (!answer) {
+            return res.status(404).send({ message: 'Your answer is not valid' });
+        } else if (!newpassword) {
+            return res.status(404).send({ message: 'Provide new password please' });
+        }
+
+        // User checking
+        const user = await UserModel.findOne({ email, answer });
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: 'User not exist please register first'
+            });
+        }
+
+        // now we need to update new password in db
+        // first we hashed the password:-
+        const hashedP = await HashedPassword(newpassword);
+
+        await UserModel.findByIdAndUpdate(user._id, { password: hashedP });
+        res.status(200).send({
+            success: true,
+            message: "new password updated successfully"
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            success: false,
+            message: 'Something went wrong'
         })
     }
 }
