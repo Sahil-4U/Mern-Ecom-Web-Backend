@@ -6,7 +6,7 @@ import Jwt from 'jsonwebtoken';
 export const registerController = async (req, res) => {
     try {
         // console.log(req.body);
-        const { name, email, password, phone, address } = req.body;
+        const { name, email, password, phone, address, answer } = req.body;
 
         // validations
         if (!name) {
@@ -24,6 +24,9 @@ export const registerController = async (req, res) => {
         if (!address) {
             return res.send({ message: 'Address is required' });
         }
+        if (!answer) {
+            return res.send({ message: 'Answer is required' });
+        }
         // check User
         const exisitingUser = await UserModel.findOne({ email });
         // console.log(exisitingUser);
@@ -37,7 +40,7 @@ export const registerController = async (req, res) => {
         //  validations are done now register the user in database
         const hashedPassword = await HashedPassword(password);
         // next create a new Object for model Schema
-        const userObject = await new UserModel({ name, email, password: hashedPassword, phone, address }).save();
+        const userObject = await new UserModel({ name, email, password: hashedPassword, phone, address, answer }).save();
         // console.log(userObject);
         return res.status(200).send({
             success: true,
@@ -78,7 +81,7 @@ export const loginController = async (req, res) => {
         // now check password is same or not
         const comparepasswordDetails = await comparePassword(password, user.password);
         if (!comparepasswordDetails) {
-            return res.status(200).send({
+            return res.status(401).send({
                 success: "unsuccessfull",
                 message: 'password not matched'
             })
