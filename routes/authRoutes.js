@@ -23,5 +23,11 @@ router.get('/user-auth', (req, res) => {
     return res.status(200).send("OK");
 })
 
+
+// api call for admin
+router.get('/admin-auth', (req, res) => {
+    return res.status(200).send("OK");
+})
+
 // export
 export default router;
