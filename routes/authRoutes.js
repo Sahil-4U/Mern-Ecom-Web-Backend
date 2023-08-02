@@ -1,5 +1,6 @@
 import express from "express";
 import { forgetController, loginController, registerController } from '../controller/authController.js';
+import { isAdmin } from "../middlewares/authMiddleware.js";
 
 
 
@@ -25,7 +26,7 @@ router.get('/user-auth', (req, res) => {
 
 
 // api call for admin
-router.get('/admin-auth', (req, res) => {
+router.get('/admin-auth', isAdmin, (req, res) => {
     return res.status(200).send("OK");
 })
 
