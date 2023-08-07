@@ -1,4 +1,4 @@
-import express, { urlencoded } from 'express';
+import express from 'express';
 import color from 'colors';
 import dotenv from 'dotenv';
 import databaseHandler from './config/database.js';
