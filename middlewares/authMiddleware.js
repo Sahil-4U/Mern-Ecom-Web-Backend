@@ -3,7 +3,7 @@ import UserModel from "../model/UserModel.js";
 
 export const requireSingIn = async (req, res, next) => {
     try {
-        const decode = Jwt.verify(req.headers.authorization, process.env.SECRET_KEY);
+        const decode = await Jwt.verify(req.headers.authorization, process.env.SECRET_KEY);
         req.user = decode;
         next()
     } catch (error) {
