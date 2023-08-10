@@ -1,6 +1,6 @@
 import express from "express";
 import { forgetController, loginController, registerController } from '../controller/authController.js';
-import { isAdmin } from "../middlewares/authMiddleware.js";
+import { isAdmin, requireSingIn } from "../middlewares/authMiddleware.js";
 
 
 
@@ -20,14 +20,18 @@ router.post('/login', loginController);
 router.post('/forget-password', forgetController);
 
 // api call for user authentication
-router.get('/user-auth', (req, res) => {
-    return res.status(200).send("OK");
+router.get('/user-auth', requireSingIn, (req, res) => {
+    return res.status(200).send({
+        ok: true
+    });
 })
 
 
 // api call for admin
-router.get('/admin-auth', isAdmin, (req, res) => {
-    return res.status(200).send("OK");
+router.get('/admin-auth', requireSingIn, isAdmin, (req, res) => {
+    return res.status(200).send({
+        ok: true
+    });
 })
 
 // export

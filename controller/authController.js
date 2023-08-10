@@ -74,7 +74,7 @@ export const loginController = async (req, res) => {
         const user = await UserModel.findOne({ email });
         if (!user) {
             return res.status(404).send({
-                status: unsuccessfull,
+                status: "unsuccessfull",
                 message: 'User not found'
             })
         }
