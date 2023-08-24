@@ -3,6 +3,7 @@ import color from 'colors';
 import dotenv from 'dotenv';
 import databaseHandler from './config/database.js';
 import authRoutes from './routes/authRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 import cors from 'cors';
 
 
@@ -26,6 +27,7 @@ app.use(cors());
 
 // routing
 app.use('/auth', authRoutes);
+app.use('/catergory', categoryRoutes);
 
 
 // rest api
