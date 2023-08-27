@@ -51,3 +51,41 @@ export const updateCategoryController = async (req, res) => {
         })
     }
 }
+
+// all categories
+export const allCategoryController = async (req, res) => {
+    try {
+        const categorydb = await CategoryModal.find({});
+        return res.status(200).send({
+            success: true,
+            categorydb,
+            message: 'All categories'
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            error,
+            message: 'Error in allcategoryController'
+        })
+    }
+}
+
+// single category controller
+export const singleCategoryController = async (req, res) => {
+    try {
+        const categorydb = await CategoryModal.findOne({ slug: req.params.slug });
+        return res.status(200).send({
+            success: true,
+            categorydb,
+            message: "Single category find successfully"
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            error,
+            message: 'Error in singleCategoryController'
+        })
+    }
+}
