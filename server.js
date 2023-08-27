@@ -10,6 +10,7 @@ import cors from 'cors';
 
 
 
+
 // env config
 dotenv.config();
 
@@ -27,7 +28,7 @@ app.use(cors());
 
 // routing
 app.use('/auth', authRoutes);
-app.use('/catergory', categoryRoutes);
+app.use('/category', categoryRoutes);
 
 
 // rest api

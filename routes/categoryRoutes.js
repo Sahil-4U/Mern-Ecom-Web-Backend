@@ -1,11 +1,11 @@
 import express from 'express';
-import { isAdmin, requireSingIn } from '../middlewares/authMiddleware';
-import { categoryController } from '../controller/categoryController';
+import { isAdmin, requireSingIn } from '../middlewares/authMiddleware.js';
+import { categoryController } from '../controller/categoryController.js';
 
-const routes = express.Router();
+const route = express.Router();
+
+console.log("category-controller", categoryController);
+route.post('/create-category', requireSingIn, isAdmin, categoryController);
 
 
-routes.post('create-category', requireSingIn, isAdmin, categoryController);
-
-
-export default routes;
+export default route;

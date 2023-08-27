@@ -1,1 +1,1 @@
-export const categoryController = () => { };
+export const categoryController = (req, res) => { console.log(req) };
