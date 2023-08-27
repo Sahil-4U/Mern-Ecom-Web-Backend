@@ -29,3 +29,25 @@ export const categoryController = async (req, res) => {
         })
     }
 };
+
+// update category controller
+export const updateCategoryController = async (req, res) => {
+    try {
+        const { name } = req.body;
+        const { id } = req.params;
+        const categorydb = await CategoryModal.findByIdAndUpdate(id, { name, slug: slugify(name) }, { new: true });
+        console.log(categorydb);
+        return res.status(202).send({
+            success: true,
+            categorydb,
+            message: 'Category updated successfully'
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            error,
+            message: 'Error in catergory update controller'
+        })
+    }
+}
