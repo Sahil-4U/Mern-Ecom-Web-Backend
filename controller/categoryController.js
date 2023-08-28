@@ -1,6 +1,9 @@
 import CategoryModal from "../model/CategoryModal.js";
 import slugify from 'slugify';
 
+
+
+// create new category
 export const categoryController = async (req, res) => {
     try {
         const { name } = req.body;
@@ -88,4 +91,9 @@ export const singleCategoryController = async (req, res) => {
             message: 'Error in singleCategoryController'
         })
     }
+}
+
+// delete category
+export const deleteCategoryController = async (req, res) => {
+
 }
