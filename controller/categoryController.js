@@ -95,5 +95,19 @@ export const singleCategoryController = async (req, res) => {
 
 // delete category
 export const deleteCategoryController = async (req, res) => {
-
+    try {
+        const { id } = req.params;
+        await CategoryModal.findByIdAndDelete(id);
+        return res.status(200).send({
+            success: true,
+            message: "Category deleted successfully"
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: 'error in deleteCategoryController',
+            error
+        })
+    }
 }

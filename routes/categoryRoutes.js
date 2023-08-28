@@ -9,7 +9,7 @@ route.post('/create-category', requireSingIn, isAdmin, categoryController);
 route.put('/update-category/:id', requireSingIn, isAdmin, updateCategoryController);
 route.get('/all-category', allCategoryController);
 route.get('/single-category/:slug', singleCategoryController);
-route.get('/delete-category/:id', requireSingIn, isAdmin, deleteCategoryController);
+route.delete('/delete-category/:id', requireSingIn, isAdmin, deleteCategoryController);
 
 
 export default route;
