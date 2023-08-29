@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import databaseHandler from './config/database.js';
 import authRoutes from './routes/authRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
+import productRoutes from './routes/productRoutes.js';
 import cors from 'cors';
 
 
@@ -29,6 +30,7 @@ app.use(cors());
 // routing
 app.use('/auth', authRoutes);
 app.use('/category', categoryRoutes);
+app.use('/products', productRoutes);
 
 
 // rest api
