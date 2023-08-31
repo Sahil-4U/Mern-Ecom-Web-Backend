@@ -47,7 +47,7 @@ export const createProductController = async (req, res) => {
 // get all products
 export const getproductsController = async (req, res) => {
     try {
-        const products = await ProductModel.find({}).select("-photo").limit(12).sort({ createdAt: -1 });
+        const products = await ProductModel.find({}).populate("category").select("-photo").limit(12).sort({ createdAt: -1 });
         return res.status(200).send({
             success: true,
             totalcount: products.length,
@@ -61,5 +61,40 @@ export const getproductsController = async (req, res) => {
             message: "Error in getting all products (check getproductsController)",
             error
         })
+    }
+}
+
+// get Single product
+export const getsingleproductController = async (req, res) => {
+    try {
+        const product = await ProductModel.findOne({ slug: req.params.slug }).select("-photo").populate("category");
+        return res.status(200).send({
+            success: true,
+            message: 'Single Product',
+            product
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: 'Error in fetching single product check(getsingleproductController)',
+            error
+        })
+    }
+}
+
+// get photo of a product
+export const photoController = async (req, res) => {
+    try {
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: "error in photoContoller",
+            error,
+        })
+
     }
 }
