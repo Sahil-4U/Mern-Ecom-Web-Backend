@@ -87,7 +87,11 @@ export const getsingleproductController = async (req, res) => {
 // get photo of a product
 export const photoController = async (req, res) => {
     try {
-
+        const product = await ProductModel.findById(req.params.pid).select("photo");
+        if (product.photo.data) {
+            res.set('Content-type', product.photo.contentType)
+            return res.status(200).send(product.photo.data)
+        }
     } catch (error) {
         console.log(error);
         return res.status(500).send({
@@ -96,5 +100,23 @@ export const photoController = async (req, res) => {
             error,
         })
 
+    }
+}
+
+// delete product controller
+export const deleteproductController = async (req, res) => {
+    try {
+        await ProductModel.findByIdAndDelete(req.params.pid).select("-photo");
+        return res.status(200).send({
+            success: true,
+            message: 'Product deleted successfully'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            success: false,
+            message: 'error while delete product',
+            error
+        })
     }
 }
