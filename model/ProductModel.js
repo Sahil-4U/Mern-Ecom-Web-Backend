@@ -28,7 +28,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     photo: {
-        type: Buffer,
+        data: Buffer,
         contentType: String
         // agar humko koi bhi image database m save krni ho to humko type:Buffer or contentType:String lena hi pdega or buffer m hum sirf 15 mb tk ki file save kr skte h
 
