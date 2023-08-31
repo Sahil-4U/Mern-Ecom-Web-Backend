@@ -2,6 +2,7 @@ import ProductModel from "../model/ProductModel.js";
 import slugigy from 'slugify';
 import fs from 'fs';
 
+// create Product
 export const createProductController = async (req, res) => {
     try {
         const { name, slug, description, price, category, quantity, shipping } = req.fields;
@@ -41,4 +42,24 @@ export const createProductController = async (req, res) => {
         message: 'Error in create Product Controller'
     })
 }
+}
+
+// get all products
+export const getproductsController = async (req, res) => {
+    try {
+        const products = await ProductModel.find({}).select("-photo").limit(12).sort({ createdAt: -1 });
+        return res.status(200).send({
+            success: true,
+            totalcount: products.length,
+            message: 'All products',
+            products
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: "Error in getting all products (check getproductsController)",
+            error
+        })
+    }
 }
